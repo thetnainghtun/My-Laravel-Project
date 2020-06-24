@@ -30,11 +30,11 @@
             </h4>
           </div>
 
-          <div class="col-2">
+          <!-- <div class="col-2">
             <a href="{{ route('posts.create') }}" class="btn btn-outline-primary btn-block float-right"> 
                     <i class="fa fa-plus pr-2"></i> Add New 
                   </a>
-          </div>
+          </div> -->
         </div>
     </div>
 
@@ -69,7 +69,7 @@
               <td>{{$row->category->name}}</td>              
 
               <td>
-                <a href="{{route('posts.show', $row->id)}}"  class="btn btn-outline-info float-left">
+                <a href="{{route('detailpost', $row->id)}}"  class="btn btn-outline-info float-left">
                   <i class="fas fa-info"></i>
                 </a>
                 <!-- <a href="{{route('posts.edit',$row->id)}}" class="btn btn-outline-warning float-left">

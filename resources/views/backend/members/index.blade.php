@@ -30,11 +30,11 @@
             </h4>
           </div>
 
-          <div class="col-2">
+          <!-- <div class="col-2">
             <a href="{{ route('members.create') }}" class="btn btn-outline-primary btn-block float-right"> 
                     <i class="fa fa-plus pr-2"></i> Add New 
                   </a>
-          </div>
+          </div> -->
         </div>
     </div>
 
@@ -75,9 +75,9 @@
                 <!-- <a href="{{route('categories.show', $row->id)}}"  class="btn btn-outline-info float-left">
                   <i class="fas fa-info"></i>
                 </a> -->
-                <a href="{{route('members.edit',$row->id)}}" class="btn btn-outline-warning float-left">
+                <!-- <a href="{{route('members.edit',$row->id)}}" class="btn btn-outline-warning float-left">
                   <i class="fas fa-edit"></i>
-                </a>
+                </a> -->
                 <form method="POST" action="{{route('members.destroy',$row->id)}}"
                    onsubmit="return confirm('Are you sure?')" class="float-left">
                   @csrf

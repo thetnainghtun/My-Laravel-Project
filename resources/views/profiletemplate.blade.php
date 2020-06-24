@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Material Design Bootstrap</title>
+  <title>Profile</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -27,12 +27,9 @@
 
 <body class="fixed-sn white-skin">
 
-  <!-- Main Navigation -->
-  
-  <!-- Main Navigation -->
 
   <!-- Main layout -->
-  <div class="container-fluid">
+  <div class="container-fluid" id="oldprofile">
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="card card-cascade narrower">
@@ -47,7 +44,7 @@
               <div class="card-body card-img-top card-body-cascade text-center mb-4">
                 <img src="{{asset($user->member->avatar)}}" width="300px;" alt="User Photo" class="z-depth-1 mb-3 mx-auto" />
 
-                <p class="text-muted"><small>Profile photo will be changed automatically</small></p>
+                <p class="text-muted"><small>Profile Detail</small></p>
 
                 <div class="form-group row">
                   <label for="memberName" class="offset-3 col-lg-2 col-form-label">Name:</label>
@@ -78,8 +75,19 @@
                 </div>
 
                 <div class="row flex-center">
-                  <button class="btn btn-info btn-rounded btn-sm">Edit Profile</button><br>
-                  <button class="btn btn-danger btn-rounded btn-sm">Delete</button>
+                  <a href="{{route('main',Auth::user()->id)}}">
+                  <button class="btn btn-success btn-rounded btn-sm" id=""class="text-decoration-none text-white">Back</button></a>
+
+                  <button class="btn btn-info w-25 btn-rounded btn-sm" id="editButton">Edit</button><br>
+                  
+                <form method="POST" action="{{route('members.destroy',Auth::user()->id)}}"
+                   onsubmit="return confirm('Are you sure?')" class="float-left">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit "class="btn btn-danger btn-rounded btn-sm">
+                    Delete
+                  </button>
+                </form>
                 </div>
               </div>
               <!-- Card content -->
@@ -90,116 +98,133 @@
 
   </div>
   <!-- Main layout -->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="card card-cascade narrower">
+  <div id="editProfile">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card card-cascade narrower">
 
-              <!-- Card image -->
-              <div class="view view-cascade gradient-card-header mdb-color lighten-3">
-                <h5 class="mb-0 font-weight-bold">Edit Account</h5>
+                <!-- Card image -->
+                <div class="view view-cascade gradient-card-header mdb-color lighten-3">
+                  <h5 class="mb-0 font-weight-bold">Edit Account</h5>
+                </div>
+                <!-- Card image -->
+
+                <!-- Card content -->
+                <div class="card-body card-body-cascade text-center">
+
+                  <!-- Edit Form -->
+                  <form method="post" action="{{route('members.update',Auth::user()->id)}}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <!-- First row -->
+                    <div class="row">
+                      
+                        <div class="col-md-12">
+                          <label for="inputLogo" class="col-sm-2 col-form-label">Avatar</label>
+                            <div class="md-form mb-0">
+                              <div class="col-sm-10">
+                                <ul class="nav nav-tabs">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" href="#old">old</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" href="#new">new</a>
+                                  </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                  <div class="tab-pane fade show active" id="old" role="tabpanel">
+                                    <img src="{{asset($user->member->avatar)}}" class="img-fliud w-50" alt="oldimage">
+                                  <input type="hidden" name="oldlogo" value="{{$user->member->avatar}}">
+                                  </div>
+                                  <div class="tab-pane fade" id="new" role="tabpanel" aria-labelledby="profile-tab">
+                                    <input type="file" class="form-control-file" id="inputLogo" name="avatar">
+                                  </div>
+                                </div> 
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                      <!-- First column -->
+                      <div class="col-md-6">
+                        <div class="md-form mb-0">
+                          <input type="text" id="form2" class="form-control validate" value="{{$user->name}}" name="memberName">
+                          <label for="form2" data-error="wrong" data-success="right">Name</label>
+                        </div>
+                      </div>
+                      <!-- Second column -->
+                      <div class="col-md-6">
+                        <div class="md-form mb-0">
+                          <input type="text" id="form2" class="form-control validate" value="{{$user->email}}" name="email">
+                          <label for="form2" data-error="wrong" data-success="right">Email</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- First row -->
+
+                   
+                   <div class="form-group row">
+                     <label class="col-sm-2 col-form-label">
+                       Gender:
+                     </label>
+                     <select name="gender">
+                       <option value="{{ $user->member->gender == 'Male'? 'checked':''}}">
+                        
+                         Male
+                       </option>
+                       <option value="{{ $user->member->gender == 'Female'? 'checked':''}}">
+                        Female</option>
+                     </select>
+                     <!-- <div >
+                       <input type="radio" name="gender">
+                       <label>Male</label>
+                     </div> -->
+                   </div>
+
+                 
+                    <!-- Second row -->
+
+                    <!-- Third row -->
+                    <div class="row">
+
+                      <!-- First column -->
+                      <div class="col-md-12">
+                        <div class="md-form mb-0">
+                          <textarea type="text" id="form78" class="md-textarea form-control" rows="3" name="address">{{$user->member->address}}</textarea>
+                          <label for="form78">Address</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Third row -->
+
+                    <!-- Fourth row -->
+                    <div class="row">
+                      <div class="col-md-6 text-center my-4">                 
+                        <button class="btn btn-danger btn-rounded"><a href="{{route('members.show',Auth::user()->id)}}" class="text-decoration-none text-white">Cancel</a></button>
+                      </div>
+                      <div class="col-md-6 text-center my-4">
+                        <input type="submit" value="Update" class="btn btn-success btn-rounded">
+                      </div>
+                    </div>
+                    
+                    <!-- Fourth row -->
+
+                  </form>
+                  <!-- Edit Form -->
+
+                </div>
+                <!-- Card content -->
+
               </div>
-              <!-- Card image -->
-
-              <!-- Card content -->
-              <div class="card-body card-body-cascade text-center">
-
-                <!-- Edit Form -->
-                <form>
-                  <!-- First row -->
-
-                  <div class="row">
-
-                    <!-- First column -->
-                    <div class="col-md-6">
-                      <div class="md-form mb-0">
-                        <input type="text" id="form1" class="form-control validate" value="Company, inc" disabled>
-                        <label for="form1" data-error="wrong" data-success="right">Company</label>
-                      </div>
-                    </div>
-                    <!-- Second column -->
-                    <div class="col-md-6">
-                      <div class="md-form mb-0">
-                        <input type="text" id="form2" class="form-control validate">
-                        <label for="form2" data-error="wrong" data-success="right">Username</label>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- First row -->
-
-                  <!-- First row -->
-                  <div class="row">
-                    <!-- First column -->
-                    <div class="col-md-6">
-                      <div class="md-form mb-0">
-                        <input type="text" id="form81" class="form-control validate">
-                        <label for="form81" data-error="wrong" data-success="right">First name</label>
-                      </div>
-                    </div>
-
-                    <!-- Second column -->
-                    <div class="col-md-6">
-                      <div class="md-form mb-0">
-                        <input type="text" id="form82" class="form-control validate">
-                        <label for="form82" data-error="wrong" data-success="right">Last name</label>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- First row -->
-
-                  <!-- Second row -->
-                  <div class="row">
-
-                    <!-- First column -->
-                    <div class="col-md-6">
-                      <div class="md-form mb-0">
-                        <input type="email" id="form76" class="form-control validate">
-                        <label for="form76">Email address</label>
-                      </div>
-                    </div>
-                    <!-- Second column -->
-
-                    <div class="col-md-6">
-                      <div class="md-form mb-0">
-                        <input type="text" id="form77" class="form-control validate">
-                        <label for="form77" data-error="wrong" data-success="right">Website Address</label>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Second row -->
-
-                  <!-- Third row -->
-                  <div class="row">
-
-                    <!-- First column -->
-                    <div class="col-md-12">
-                      <div class="md-form mb-0">
-                        <textarea type="text" id="form78" class="md-textarea form-control" rows="3"></textarea>
-                        <label for="form78">About me</label>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Third row -->
-
-                  <!-- Fourth row -->
-                  <div class="row">
-                    <div class="col-md-12 text-center my-4">
-                      <input type="submit" value="Update Account" class="btn btn-info btn-rounded">
-                    </div>
-                  </div>
-                  <!-- Fourth row -->
-
-                </form>
-                <!-- Edit Form -->
-
-              </div>
-              <!-- Card content -->
-
-            </div>
+        </div>
       </div>
+      
     </div>
-    
   </div>
+  
   
 
   <!-- SCRIPTS -->
@@ -223,6 +248,19 @@
       minScrollbarLength: 20
     });
 
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+      $("#editProfile").hide();
+
+      $("#editButton").click(function(){
+
+        $("#editProfile").show(1000);
+        $("#oldprofile").hide(1000);
+      });
+    });
   </script>
 </body>
 

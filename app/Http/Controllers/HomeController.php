@@ -28,8 +28,10 @@ class HomeController extends Controller
     // }
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
         // $users = User::all();
-        return view('backend.posts.index',compact('posts'));
+        // return view('backend.posts.index',compact('posts'));
+        return redirect()->route('main');
+        // return view('frontend.main');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Member;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -23,6 +24,7 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::all();
+
         return view('backend.members.index',compact('members'));
         // return view('profiletemplate',compact('members'));
     }
@@ -113,7 +115,8 @@ class MemberController extends Controller
     public function edit($id)
     {
         $member = Member::find($id);
-        return view('backend.members.edit',compact('member'));
+        // return view('backend.members.edit',compact('member'));
+        return view('profiletemplate',compact('member'));
     }
 
     /**
@@ -125,7 +128,7 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        // dd($request);
         // Validation
         $request-> validate([
 
@@ -152,16 +155,29 @@ class MemberController extends Controller
         }        
         
 
-        
-        $member = Member::find($id);
-        $user = User::find($member->user_id);
+        $user = User::find($id);
+        $member = Member::find($user->member->user_id);
+        dd($member);
+
+        // dd($id);
+        //$members=Member::all();
+        //$member = Member::find($user);
+        // dd($member);
+      /*  $member = Member::find($id);
+        dd($member);*/
+        // $member = DB::select('select id from members where members.user_id');
+
+
+        //$user = User::find($member->user_id);
         // dd($user);
         // $member->user_id= $user->name;
         // $member->user_id= $user->email;
-        // dd($member);
+         //dd($member);
         $member->gender = request('gender');
+        
         $member->avatar = $path;
         $member->address = request('address');
+        // dd($member);
 
         $member ->save();
 
@@ -174,7 +190,7 @@ class MemberController extends Controller
 
         
 
-        return redirect()->route('members.index');
+        return redirect()->route('main');
         
 
     }
@@ -187,13 +203,21 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        $member = Member::find($id);
-        $user = User::find($member->user_id);
+        // dd($id);
+
+        // $member = Member::find($id);
+        // dd($member);
+        // $user = User::find($member->user_id);
+        // $user->delete();
+        
+        // return redirect()->route('backend.members.index');
+
+        $user = User::find($id);
+        // $member = Member::find($user->member->user_id)
+        // dd($member);
+        // $member->delete();
         $user->delete();
-        $member->delete();
-
-
         // Return redirect // 5
-        return redirect()->route('members.index');
+        return redirect()->route('main');
     }
 }

@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('backend.dashboard');
-});
+});*/
 
 
 
@@ -23,19 +23,14 @@ Route::group([
 	
 ], function(){
 
-Route::get('dashboard','BackendController@dashboard')->middleware('role:Admin');
+Route::get('dashboard','BackendController@dashboard')->name('dashboard')->middleware('role:Admin');
 
 // Route for category
 Route::resource('categories','CategoryController')->middleware('role:Admin');
 
-
-
-// Route for Post
-// Route::resource('posts','PostController');
-
 });
 
-Route::get('userprofile', 'ProfileController@profile')->name('userprofile');
+Route::resource('userprofile', 'ProfileController');
 
 Route::resource('posts','PostController');
 
@@ -43,25 +38,19 @@ Route::resource('posts','PostController');
 Route::resource('members','MemberController');
 // Route::resource('members','MemberController@edit')->name('membersedit');
 
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-// Route for frontend
-Route::get('main','FrontendController@main')->name('main');
-
-// Route for frontend
-Route::get('register','FrontendController@register');
-
-Route::get('showCategory','FrontendController@showCategory');
-
+Route::get('/','FrontendController@main')->name('main');
 Route::get('newpost','FrontendController@newPost')->name('newpost');
+Route::get('categoryfilter/{id}', 'FrontendController@categoryfilter')->name('categoryfilter');
 
+
+Route::post('category_data','FrontendController@category_data')->name('category_data');
+
+// Route for register
+Route::get('register','FrontendController@register');
 Route::get('detailpost/{id}','FrontendController@detailPost')->name('detailpost');
-
-//Frontend
-Route::get('/frontend','FrontendController@main');
 
 

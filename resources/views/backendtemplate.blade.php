@@ -60,23 +60,23 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">    
       <!-- Authentication Links -->
-      @if (Auth::guest())
+      <!-- @if (Auth::guest())
           <li><a href="{{ url('/login') }}">Login</a></li>
           <li><a href="{{ url('/register') }}">Register</a></li>
-      @else
+      @else -->
       <!-- Nav Item - User Information -->
       <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               {{ Auth::user()->name }} <span class="caret"></span>
-              {{ Auth::user()->id }} 
+              <!-- {{ Auth::user()->id }}  -->
 
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{route('members.show',Auth::user()->id)}}"
+              <a class="dropdown-item" href="{{route('main',Auth::user()->id)}}"
                  >
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  {{ __('Profile') }}
+                  <i class="fas fa-home"></i>
+                  {{ __('Home Page') }}
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}"
@@ -99,8 +99,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+      <!-- <img src="img/user.png" alt="Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8"> -->
       <span class="brand-text font-weight-light">Admin DC</span>
     </a>
 
@@ -109,7 +109,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="image/user.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Admin</a>
@@ -304,31 +304,14 @@
 
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io"></a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="http://adminlte.io"></a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.3-pre
+      <b>Discussion Corner</b>
     </div>
   </footer>
 
-  <!-- Logout Modal-->
-  <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="#">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div> -->
+
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

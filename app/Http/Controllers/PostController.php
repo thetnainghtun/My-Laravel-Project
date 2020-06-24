@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Post;
@@ -24,8 +25,8 @@ class PostController extends Controller
     {
         $posts = Post::all();
         // $users = User::all();
-        // return view('backend.posts.index',compact('posts'));
-        return view('frontend.main',compact('posts'));
+        return view('backend.posts.index',compact('posts'));
+        // return view('frontend.main',compact('posts'));
     }
 
     /**
